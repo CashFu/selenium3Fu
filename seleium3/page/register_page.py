@@ -22,8 +22,8 @@ class RegisterPage():
         return self.fd.get_element('code_text')
 
     # 获取点击按钮
-    def get_register_butto_element(self):
-        return self.fd.get_element('register_butto')
+    def get_register_button_element(self):
+        return self.fd.get_element('register_button')
 
     # 获取错误的信息
     def get_email_error_element(self):

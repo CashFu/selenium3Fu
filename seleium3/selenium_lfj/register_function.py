@@ -1,4 +1,5 @@
 # coding=utf-8
+import os
 import random
 
 import time
@@ -12,10 +13,9 @@ from page.register_page import RegisterPage
 
 # 登录
 class RegisterFunction():
-    def __init__(self, url, more_brower,driver):
-        self.driver = self.send_driver(url, more_brower)
-        # 暂时用的--记得修改
-        self.fd = RegisterPage(driver)
+    def __init__(self, url,driver):
+        self.driver = self.send_driver(url,driver)
+
 
     # 获取deiver
     def send_driver(self, url, more_brower):
@@ -41,7 +41,7 @@ class RegisterFunction():
 
     # 获取随机数
     def get_range_user(self):
-        user_info = ''.join(random.sample('1234567890asdfghjk', 5))
+        user_info = ''.join(random.sample('1234567890qwertyuiopasdfghjklzxcvbnm', 5))
         return user_info
 
     # 保存图片
@@ -71,24 +71,30 @@ class RegisterFunction():
     def main(self):
         user_nickname = self.get_range_user()
         user_email = user_nickname + '@126.com'
-        file_path = r'G:\seleium3\Image\c.png'
+        path_file = os.getcwd()
+        file_path = os.path.abspath(os.path.dirname(path_file) + '/Image' + '/c.png')
         text = self.code_online(file_path)
-        self.send_user_info(self.fd.get_email_error_element(), user_email)
-        self.send_user_info(self.fd.get_user_name_element(), user_nickname)
-        self.send_user_info(self.fd.get_password_element(), user_nickname)
-        self.send_user_info(self.fd.get_code_text_element(), text)
-        self.get_user_element('register_butto').click()
+        self.send_user_info('user_email', user_email)
+        self.send_user_info('user_name', user_nickname)
+        self.send_user_info('password', user_nickname)
+        self.send_user_info('code_text', text)
+        self.get_user_element('register_button').click()
         code_error = self.get_user_element('captcha_code-error')
         if code_error == None:
             print('注册成功')
         else:
-            self.driver.save_screenshot(r'G:\seleium3\Image\error.png')
+            path_file = os.getcwd()
+            file_path = os.path.abspath(os.path.dirname(path_file) + '/Image' + '/code.png')
+            print(file_path)
+            self.driver.save_screenshot(file_path)
         time.sleep(2)
         self.driver.close()
 
 
 if __name__ == '__main__':
-    for more_brower in range(1):
-        print(more_brower)
-        register_function = RegisterFunction('http://www.5itest.cn/register', more_brower)
-        register_function.main()
+    pass
+
+    # for more_brower in range(1):
+    #     print(more_brower)
+    #     register_function = RegisterFunction('http://www.5itest.cn/register',more_brower)
+    #     register_function.main()

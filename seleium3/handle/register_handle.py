@@ -25,21 +25,24 @@ class RegisterHandele():
 
     # 获取文字信息  info 是判断是属于哪个信息
     def get_text_info(self, info, user_info):
+
         if info == 'email_error':
             # 获取文本信息的函数get_attribute
-            text = self.register_p.get_email_element().get_attribute('value')
+            text = self.register_p.get_email_error_element().get_attribute('value')
+            # text = self.register_p.get_email_error_element().text
+
         elif info == 'nickname_error':
-            text = self.register_p.get_user_name_element().get_attribute('value')
+            text = self.register_p.get_nickname_error_element().get_attribute('value')
         elif info == 'password_error':
-            text = self.register_p.get_password_element().get_attribute('value')
+            text = self.register_p.get_password_error_element().get_attribute('value')
         elif info == 'code_error':
             text = self.register_p.get_code_error_element().get_attribute('value')
         return text
 
     # 点击注册
     def click_register_button(self):
-        self.register_p.get_register_butto_element().click()
+        self.register_p.get_register_button_element().click()
 
 #     获取注册按钮文字信息
     def get_register_text(self):
-        return self.register_p.get_register_butto_element().text
+        return self.register_p.get_register_button_element().text

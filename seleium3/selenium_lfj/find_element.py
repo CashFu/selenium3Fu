@@ -19,4 +19,5 @@ class FindElement():
             else:
                 return self.driver.find_element_by_xpath(value)
         except:
-            return '没有找到定位的元素！'
+            self.driver.save_screenshot(r"G:\unittets_lfj\seleium3\Image\%s.png"%value)
+            return None

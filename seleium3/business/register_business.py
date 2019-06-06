@@ -17,13 +17,13 @@ class RedisterBusiness():
         self.register_h.click_register_button()
         # 这个case成功返回None
         self.register_h.get_register_text()
-    def register_succes(self):
+
+    def register_succeed(self):
         if self.register_h.get_register_text() == None:
             print("注册是点击按钮不成功")
             return True
         else:
             return False
-
 
     # 单个检查错误信息-case直接调用
     def login_email_error(self, email, name, password, code):
@@ -35,6 +35,15 @@ class RedisterBusiness():
         else:
             # 成功就是False
             return False
+
+    def register_function(self, email, username, password, code, assertCode, assertText):
+        self.user_base(email, username, password, code)
+        if self.register_h.get_text_info(assertCode, assertText) == None:
+            print('检查%s--不成功')
+            return True
+        else:
+            return False
+
     def login_name_error(self, email, name, password, code):
         self.user_base(email, name, password, code)
         # 返回的是text；有好几种text，分别获取。获取不到则为空
@@ -52,10 +61,11 @@ class RedisterBusiness():
             return True
         else:
             return False
+
     def login_code_error(self, email, name, password, code):
         self.user_base(email, name, password, code)
         # 返回的是text；有好几种text，分别获取。获取不到则为空
-        if self.register_h.get_text_info('code_error', '最少需要输入 5 个字符') == None:
+        if self.register_h.get_text_info('code_error', '验证码错误') == None:
             print('密码长度不成功')
             return True
         else:
